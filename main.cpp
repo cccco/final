@@ -169,7 +169,7 @@ void process_slave_socket(int slave_socket)
         sprintf(reply, "HTTP/1.0 200 OK\r\n"
                        "Content-Type: text/html\r\n"
                        "Content-length: %d\r\n"
-                       //"Connection: close\r\n"
+                       "Connection: close\r\n"
                        "\r\n", sz);
 
         ssize_t send_ret = send(slave_socket, reply, strlen(reply), MSG_NOSIGNAL);
