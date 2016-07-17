@@ -258,6 +258,9 @@ void set_worker_free(struct ev_loop *loop, struct ev_io *w, int revents)
     std::cout << "set_worker_free: got slave socket " << slave_socket << std::endl;
 #endif
 
+    // Закрываем отработанный сокет
+    close(slave_socket);
+
     // here we can restore watcher for the slave socket
 
     // complete all the work from the queue
@@ -405,30 +408,27 @@ int main(int argc, char* argv[])
     struct ev_loop *loop = ev_default_loop(EVFLAG_FORKCHECK);
 
 
-    //---------------- Create 300 workers --------------------//
+    //---------------- Create 3 workers --------------------//
 
-    for (int i = 1; i <= 300; i++) {
-        if (create_worker() == 0)
-        {
-            // worker i process
-            printf("Worker %d is about to return\n", i);
-            return 0;
-        }
+    if (create_worker() == 0)
+    {
+        // worker 1 process
+        printf("Worker 1 is about to return\n");
+        return 0;
+    }
 
+    if (create_worker() == 0)
+    {
+        // worker 2 process
+        printf("Worker 2 is about to return\n");
+        return 0;
+    }
 
-//        if (create_worker() == 0)
-//        {
-//            // worker 2 process
-//            printf("Worker 2 is about to return\n");
-//            return 0;
-//        }
-
-//        if (create_worker() == 0)
-//        {
-//            // worker 3 process
-//            printf("Worker 3 is about to return\n");
-//            return 0;
-//        }
+    if (create_worker() == 0)
+    {
+        // worker 3 process
+        printf("Worker 3 is about to return\n");
+        return 0;
     }
 
     //------------------------------------------------------//
