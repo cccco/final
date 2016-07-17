@@ -405,28 +405,30 @@ int main(int argc, char* argv[])
     struct ev_loop *loop = ev_default_loop(EVFLAG_FORKCHECK);
 
 
-    //---------------- Create 3 workers --------------------//
+    //---------------- Create 300 workers --------------------//
 
-    if (create_worker() == 0)
-    {
-        // worker 1 process
-        printf("Worker 1 is about to return\n");
-        return 0;
-    }
+    for (int i = 1; i <= 300; i++) {
+        if (create_worker() == 0)
+        {
+            // worker i process
+            printf("Worker %d is about to return\n", i);
+            return 0;
+        }
 
 
-    if (create_worker() == 0)
-    {
-        // worker 2 process
-        printf("Worker 2 is about to return\n");
-        return 0;
-    }
+//        if (create_worker() == 0)
+//        {
+//            // worker 2 process
+//            printf("Worker 2 is about to return\n");
+//            return 0;
+//        }
 
-    if (create_worker() == 0)
-    {
-        // worker 3 process
-        printf("Worker 3 is about to return\n");
-        return 0;
+//        if (create_worker() == 0)
+//        {
+//            // worker 3 process
+//            printf("Worker 3 is about to return\n");
+//            return 0;
+//        }
     }
 
     //------------------------------------------------------//
