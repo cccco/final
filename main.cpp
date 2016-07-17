@@ -360,6 +360,8 @@ void master_accept_connection(struct ev_loop *loop, struct ev_io *w, int revents
 #ifdef HTTP_DEBUG
     std::cout << "master_accept_connection: slave socket is " << slave_socket << std::endl;
 #endif
+
+    close(slave_socket);
 }
 
 
