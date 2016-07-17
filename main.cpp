@@ -242,6 +242,9 @@ void do_work(struct ev_loop *loop, struct ev_io *w, int revents)
 #ifdef HTTP_DEBUG
     std::cout << "do_work: sent slave socket " << slave_socket << std::endl;
 #endif
+
+    // Закрываем сокет
+    close(slave_socket);
 }
 
 
@@ -258,7 +261,7 @@ void set_worker_free(struct ev_loop *loop, struct ev_io *w, int revents)
     std::cout << "set_worker_free: got slave socket " << slave_socket << std::endl;
 #endif
 
-    // Закрываем отработанный сокет
+    // Закрываем сокет
     close(slave_socket);
 
     // here we can restore watcher for the slave socket
@@ -267,6 +270,9 @@ void set_worker_free(struct ev_loop *loop, struct ev_io *w, int revents)
     while ((slave_socket = safe_pop_front()) != -1)
     {
         process_slave_socket(slave_socket);
+
+        // Закрываем сокет
+        close(slave_socket);
     }
 
     workers[fd] = true;
