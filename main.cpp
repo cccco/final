@@ -116,6 +116,9 @@ void slave_send_to_worker(struct ev_loop *loop, struct ev_io *w, int revents)
             std::cout << "slave_send_to_worker: sent slave socket " << slave_socket << " to worker" << std::endl;
 #       endif
 
+            // Закрываем сокет
+            close(slave_socket);
+
             return;
         }
     }
@@ -361,7 +364,7 @@ void master_accept_connection(struct ev_loop *loop, struct ev_io *w, int revents
     std::cout << "master_accept_connection: slave socket is " << slave_socket << std::endl;
 #endif
 
-    close(slave_socket);
+    //close(slave_socket);
 }
 
 
