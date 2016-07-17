@@ -192,7 +192,7 @@ void process_slave_socket(int slave_socket)
         strcpy(reply, "HTTP/1.0 404 Not Found\r\n"
                       "Content-Type: text/html\r\n"
                       "Content-length: 107\r\n"
-                      //"Connection: close\r\n"
+                      "Connection: close\r\n"
                       "\r\n");
 
         ssize_t send_ret = send(slave_socket, reply, strlen(reply), MSG_NOSIGNAL);
